@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --primary: 255 255 255;
+  --secondary: 242 242 242;
+  --accent: 80 221 144;
+  --content: 0 0 0;
+  --line: 212 212 212;
+}
+
+.dark{
+  --primary: 0 0 0;
+  --secondary: 22 22 22;
+  --accent: 80 221 144;
+  --content: 255 255 255;
+  --line: 14 14 14;
+}
+
+@layer base {
+  body {
+    @apply
+    bg-primary
+    text-content;
+  }
+
+  a{
+    @apply
+    text-content
+  }
+
+  ul {
+    @apply
+    list-none
+    text-content
+  }
+
+  img{
+    @apply
+    block
+    w-full
+    h-auto
+  }
+
+  h1,h2,h3,h4,h5,h6 {
+    @apply
+    font-bold
+    text-content
+  }
+
+  h1{
+    @apply
+    text-3xl
+    mb-4
+  }
+  h2{
+    @apply
+    text-xl
+    mb-4
+  }
+  h3{
+    @apply
+    text-lg
+    mb-2
+  }
+  h4{
+    @apply
+    text-base
+    mb-4
+  }
+
+  p{
+    @apply
+    mb-2
+  }
+  
+}
+
+@layer components {
+  .nav{
+    @apply
+    space-y-4 
+    mt-20
+  }
+
+  .nav-link{
+    @apply
+    p-2
+    pl-8
+  }
+
+  .nav-link a{
+    @apply
+    flex gap-3
+    items-center
+  }
+
+  .nav-link.active{
+    @apply
+    border-l
+    border-accent
+  }
+
+  .nav-link.active a{
+    @apply
+    text-accent
+  }
+
+
+}
