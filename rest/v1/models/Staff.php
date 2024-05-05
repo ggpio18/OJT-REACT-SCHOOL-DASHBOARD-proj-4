@@ -36,6 +36,8 @@ Class Staff {
             $sql .= ":staff_class, ";
             $sql .= ":staff_age, ";
             $sql .= ":staff_is_active, ";
+            $sql .= ":staff_gender, ";
+            $sql .= ":staff_email, ";
             $sql .= ":staff_created, ";
             $sql .= ":staff_datetime ) ";
             $query = $this->connection->prepare($sql);
@@ -93,7 +95,7 @@ Class Staff {
             $sql .= "staff_age = :staff_age, ";
             $sql .= "staff_class = :staff_class, ";
             $sql .= "staff_gender = :staff_gender, ";
-            $sql .= "staff_email = :student_email, ";
+            $sql .= "staff_email = :staff_email, ";
             $sql .= "staff_datetime = :staff_datetime ";
             $sql .= "where staff_aid  = :staff_aid ";
             $query = $this->connection->prepare($sql);
