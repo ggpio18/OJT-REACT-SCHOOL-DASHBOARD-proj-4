@@ -5,8 +5,10 @@ import TableLoader from '../../../../partials/TableLoader'
 import NoData from '../../../../partials/NoData'
 import SpinnerFetching from '../../../../partials/spinners/SpinnerFetching'
 
-const StaffTable = ({setShowInfo, showInfo}) => {
+const StaffTable = ({setShowInfo, showInfo, staff, isLoading}) => {
     const handleShowInfo = () => setShowInfo(!showInfo)
+    let counter = 1;
+
   return (
     <div className="table-wrapper relative">
         {/* <SpinnerFetching/> */}
@@ -23,33 +25,49 @@ const StaffTable = ({setShowInfo, showInfo}) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colSpan={9}>
-                                    <TableLoader count="20" cols="4"/>
-                                </td>
-                            </tr>
+                          {isLoading && ( 
+                <tr>
+                    <td colSpan={9}>
+                        <TableLoader count="20" cols="4"/>
+                    </td>
+                </tr>)
+                }
 
-                            <tr>
-                                <td colSpan={9}>
-                                    <NoData/>
-                                </td>
-                            </tr>
+                {staff?.data.length === 0 && (
+                    <tr>
+                        <td colSpan={9}>
+                            <NoData/>
+                        </td>
+                    </tr>
+                )}
+
+                {staff?.data.map((item, key) => (
                             <tr onDoubleClick={handleShowInfo}>
-                                <td>1</td>
-                                <td>Robert Fox</td>
-                                <td>Science 4</td>
-                                <td>7</td>
-                                <td>Male</td>
-                                <td>Robert.fox@Gmail.com</td>
+                                <td>{counter++}</td>
+                                <td>{item.staff_name}</td>
+                                <td>{item.staff_class}</td>
+                                <td>{item.staff_age}</td>
+                                <td>{item.staff_gender}</td>
+                                <td>{item.staff_email}</td>
                                 <td className='table-action'>
+
                                     <ul>
+                                        {item.student_is_active ? (
+                                    <>
                                         <li><button className="tooltip" data-tooltip="Edit"><LiaEdit/></button></li>
-                                        <li><button className="tooltip" data-tooltip="Archive"><PiArchive/></button></li>
-                                        <li><button className="tooltip" data-tooltip="Restore"><LiaHistorySolid/></button></li>
-                                        <li><button className="tooltip" data-tooltip="Delete"><LiaTrashAltSolid/></button></li>
+                                        <li><button className="tooltip" data-tooltip="Archive"><PiArchive /></button></li>
+                                    </>
+                                ) : (
+                                    <>
+                                    <li><button className="tooltip" data-tooltip="Restore"><LiaHistorySolid/></button></li>
+                                    <li><button className="tooltip" data-tooltip="Delete"><LiaTrashAltSolid/></button></li></>
+                                )}
                                     </ul>
                                 </td>
                             </tr>
+                            ))              
+                        }   
+
                         </tbody>
                     </table>
                 </div>

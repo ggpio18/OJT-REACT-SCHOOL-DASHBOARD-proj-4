@@ -8,11 +8,22 @@ import { LiaEdit, LiaEnvelope, LiaHistorySolid, LiaKeySolid, LiaTrashAltSolid } 
 
 import TeacherTable from './TeacherTable'
 import Databaseinformation from '../Databaseinformation'
+import useQueryData from '../../../../custom-hook/useQueryData'
 
 
 
 const Teacher = () => {
     const [showInfo, setShowInfo] = React.useState(false);
+    const {
+        isLoading,
+        isFetching,
+        error,
+        data: teacher,
+      } = useQueryData(
+        "/v1/teacher", // endpoint
+        "get", // method
+        "teacher" // key
+      );
 
   return (
     <>
@@ -43,7 +54,7 @@ const Teacher = () => {
                     </button>
                 </div>
 
-                <TeacherTable showInfo={showInfo} setShowInfo={setShowInfo}/>
+                <TeacherTable showInfo={showInfo} setShowInfo={setShowInfo} isLoading={isLoading} teacher={teacher}/>
 
             </div>
              <Databaseinformation showInfo={showInfo}/>

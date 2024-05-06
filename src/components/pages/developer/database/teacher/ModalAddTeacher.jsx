@@ -2,8 +2,22 @@ import React from 'react'
 import { LiaTimesSolid } from 'react-icons/lia'
 import ModalWrapper from '../../../../partials/modals/ModalWrapper'
 import SpinnerButton from '../../../../partials/spinners/SpinnerButton'
+import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
 
 const ModalAddTeacher = () => {
+    const initVal ={
+        teacher_name: "",
+        teacher_class: "",
+        teacher_age: "",
+    }
+
+    const yupSchema = Yup.object({
+        teacher_name: Yup.string().required("Required g"),
+        teacher_class: Yup.string().required("Required g"),
+        teacher_age: Yup.number().required("Required g"),
+    })
+
   return (
     <ModalWrapper>
       <div className="main-modal w-[300px] bg-secondary text-content h-full">
@@ -12,34 +26,49 @@ const ModalAddTeacher = () => {
                     <button className='absolute top-[25px] right-4'><LiaTimesSolid/></button>
                 </div>
                 <div className="modal-body p-4">
-                    <form action="" className='flex flex-col h-[calc(100vh-110px)]'>
+                    <Formik
+                    initialValues={initVal}
+                    validationSchema={yupSchema}
+                    onSubmit={async (values) => {
+                        console.log(values)
+                    }}
+                    >
+                         {(props) => {
+                            return (
+                    <Form action="" className='flex flex-col h-[calc(100vh-110px)]'>
                         <div className='grow overflow-y-auto'>
                             
                         <div className="input-wrap">
-                            <label htmlFor="">Name</label>
-                            <input type="text" />
-                            <small className='error-msg'>Required*</small>
+                             <InputText
+                                label="Name"
+                                type="text"
+                                name="teacher_name"
+                            />
                         </div>
 
                         <div className="input-wrap">
-                            <label htmlFor="">Class</label>
-                            <input type="text" />
-                            <small className='error-msg'>Required*</small>
+                        <InputText
+                                label="Class"
+                                type="text"
+                                name="teacher_class"
+                            />
                         </div>
 
-                        <div className="input-wrap">
+                        {/* <div className="input-wrap">
                             <label htmlFor="">Gender</label>
                             <select>
                                 <option value="Male" className='text-stone-900'>Male</option>
                                 <option value="Feale" className='text-stone-900'>Female</option>
                             </select>
                             <small className='error-msg'>Required*</small>
-                        </div>
+                        </div> */}
 
                         <div className="input-wrap">
-                            <label htmlFor="">Age</label>
-                            <input type="number" />
-                            <small className='error-msg'>Required*</small>
+                        <InputText
+                                label="Age"
+                                type="number"
+                                name="teacher_age"
+                            />
                         </div>
 
                         </div>
@@ -48,7 +77,8 @@ const ModalAddTeacher = () => {
                             <button className='btn btn-form btn--accent'>Add<SpinnerButton/></button>
                             <button className='btn btn-form btn--cancel'>Cancel</button>
                         </div>
-                    </form>
+                    </Form>)}}
+                    </Formik>
                 </div>
         </div>
     </ModalWrapper>
