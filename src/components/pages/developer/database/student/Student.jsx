@@ -15,10 +15,16 @@ import ModalConfirmed from '../../../../partials/modals/ModalConfirmed'
 import ModalDelete from '../../../../partials/modals/ModalDelete'
 import SpinnerWindow from '../../../../partials/spinners/SpinnerWindow'
 import useQueryData from '../../../../custom-hook/useQueryData'
+import Toast from '../../../../partials/Toast'
 
 
 const Student = () => {
     const [showInfo, setShowInfo] = React.useState(false);
+    const [isAdd, setIsAdd] = React.useState(false);
+    const [isSuccess, setIsSuccess] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+    const [itemEdit, setItemEdit] = React.useState(null);
+
     const {
         isLoading,
         isFetching,
@@ -30,6 +36,10 @@ const Student = () => {
         "student" // key
       );
 
+      const handleAdd = () => {
+        setIsAdd(true)
+        setItemEdit(null)
+      }
 
   return (
     <>
@@ -55,12 +65,13 @@ const Student = () => {
                         <li className='tab-link'><Link to="/database/teacher">Teacher</Link></li>
                         <li className='tab-link'><Link to="/database/staff">Staff</Link></li>
                     </ul>
-                    <button className='btn btn--accent'>
+
+                    <button className='btn btn--accent' onClick={handleAdd}>
                         <FiPlus/> New
                     </button>
                 </div>
 
-                <StudentTable showInfo={showInfo} setShowInfo={setShowInfo} isLoading={isLoading} student={student}/>
+                <StudentTable showInfo={showInfo} setShowInfo={setShowInfo} isLoading={isLoading} student={student} setItemEdit={setItemEdit} setIsAdd={setIsAdd} setIsSuccess={setIsSuccess} setMessage={setMessage}/>
 
             </div>
              <Databaseinformation showInfo={showInfo}/>
@@ -68,6 +79,10 @@ const Student = () => {
 
         </main>
     </section>
+    {isAdd && <ModalAddStudent setIsAdd={setIsAdd} setIsSuccess={setIsSuccess} setMessage={setMessage} itemEdit={itemEdit}/>}
+    {isSuccess && <Toast setIsSuccess={setIsSuccess} message={message}/>}
+
+
     {/* <ModalAddStudent/> */}
     {/* <ModalError position="center"/> */}
     {/* <ModalValidate position="center"/> */}

@@ -42,7 +42,7 @@ const StaffTable = ({setShowInfo, showInfo, staff, isLoading}) => {
                 )}
 
                 {staff?.data.map((item, key) => (
-                            <tr onDoubleClick={handleShowInfo}>
+                            <tr onDoubleClick={handleShowInfo} key={key}>
                                 <td>{counter++}</td>
                                 <td>{item.staff_name}</td>
                                 <td>{item.staff_class}</td>

@@ -28,16 +28,16 @@ Class Student {
             $sql .= "student_class, ";
             $sql .= "student_age, ";
             $sql .= "student_is_active, ";
-            $sql .= "student_gender, ";
-            $sql .= "student_email, ";
+            // $sql .= "student_gender, ";
+            // $sql .= "student_email, ";
             $sql .= "student_created, ";
             $sql .= "student_datetime ) values ( ";
             $sql .= ":student_name, ";
             $sql .= ":student_class, ";
             $sql .= ":student_age, ";
             $sql .= ":student_is_active, ";
-            $sql .= ":student_gender, ";
-            $sql .= ":student_email, ";
+            // $sql .= ":student_gender, ";
+            // $sql .= ":student_email, ";
             $sql .= ":student_created, ";
             $sql .= ":student_datetime ) ";
             $query = $this->connection->prepare($sql);
@@ -46,8 +46,8 @@ Class Student {
                 "student_class" => $this->student_class,
                 "student_age" => $this->student_age,
                 "student_is_active" => $this->student_is_active,
-                "student_gender" => $this->student_gender,
-                "student_email" => $this->student_email,
+                // "student_gender" => $this->student_gender,
+                // "student_email" => $this->student_email,
                 "student_created" => $this->student_created,
                 "student_datetime" => $this->student_datetime,
             ]);

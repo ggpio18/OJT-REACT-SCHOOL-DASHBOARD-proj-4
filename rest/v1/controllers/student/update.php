@@ -10,8 +10,8 @@ if (array_key_exists("studentid", $_GET)) {
     $student->student_name = checkIndex($data, "student_name");
     $student->student_age = checkIndex($data, "student_age");
     $student->student_class = checkIndex($data, "student_class");
-    $student->student_gender = checkIndex($data, "student_gender");
-    $student->student_email = checkIndex($data, "student_email");
+    // $student->student_gender = checkIndex($data, "student_gender");
+    // $student->student_email = checkIndex($data, "student_email");
     $student->student_datetime = date("Y-m-d H:i:s");
     
     checkId($student->student_aid);
