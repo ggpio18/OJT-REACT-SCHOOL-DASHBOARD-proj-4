@@ -10,10 +10,13 @@ import Databaseinformation from '../Databaseinformation'
 
 import StaffTable from './StaffTable'
 import useQueryData from '../../../../custom-hook/useQueryData'
+import Databaseinformationstaff from './Databaseinformationstaff'
 
 
 const Staff = () => {
     const [showInfo, setShowInfo] = React.useState(false);
+    const [staffInfo, setSaffInfo] = React.useState('')
+
     const {
         isLoading,
         isFetching,
@@ -55,10 +58,10 @@ const Staff = () => {
                     </button>
                 </div>
 
-                <StaffTable showInfo={showInfo} setShowInfo={setShowInfo} isLoading={isLoading} staff={staff}/>
+                <StaffTable showInfo={showInfo} setShowInfo={setShowInfo} isLoading={isLoading} staff={staff} setSaffInfo={setSaffInfo}/>
 
             </div>
-             <Databaseinformation showInfo={showInfo}/>
+             <Databaseinformationstaff showInfo={showInfo} staffInfo={staffInfo}/>
         </div>
 
         </main>

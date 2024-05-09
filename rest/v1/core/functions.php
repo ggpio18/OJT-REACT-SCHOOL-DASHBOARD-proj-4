@@ -115,6 +115,14 @@ function checkId($id)
     }
 }
 
+// Read search
+function checkSearch($object)
+{
+    $query = $object->search();
+    checkQuery($query, "Empty records. (search core)");
+    return $query;
+}
+
 function checkKeyCode($key)
 {
     $response = new Response();

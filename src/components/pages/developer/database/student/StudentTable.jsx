@@ -6,44 +6,51 @@ import NoData from '../../../../partials/NoData'
 import SpinnerFetching from '../../../../partials/spinners/SpinnerFetching'
 import ModalConfirmed from '../../../../partials/modals/ModalConfirmed'
 import ModalDelete from '../../../../partials/modals/ModalDelete'
+import { StoreContext } from '../../../../../store/StoreContext'
+import { setIsActive, setIsAdd, setIsDelete, setIsShow } from '../../../../../store/StoreAction'
 
-const StudentTable = ({setShowInfo, showInfo, student, isLoading, setItemEdit, setIsAdd, setIsSuccess, setMessage}) => {
-    const [isActive, setIsActive] = React.useState(false);
+const StudentTable = ({showInfo, student, isLoading, setItemEdit, setIsSuccess, setMessage, setStudentInfo}) => {
+    const {store, dispatch} = React.useContext(StoreContext)
     const [isArchiving, setIsArchiving] = React.useState(0);
-    const [isDelete, setIsDelete] = React.useState(false);
+  
     const [id, setId] = React.useState('')
-    const handleShowInfo = () => setShowInfo(!showInfo)
+    
+    const handleShowInfo = (item) => {
+        setStudentInfo(item)
+        dispatch(setIsShow(true))
+    }
     
     let counter = 1;
 
     const handleEdit = (item) => {
-        setIsAdd(true)
-        setItemEdit(item)
+        dispatch(setIsAdd(true));
+        setItemEdit(item);
     }
 
     const handleActive = (item) => {
-        setIsActive(true);
-        setId(item.student_aid)
-        setIsArchiving(0)
+        dispatch(setIsActive(true));
+        setId(item.student_aid);
+        setIsArchiving(0);
     }
     const handleRestore = (item) => {
-        setIsActive(true);
-        setId(item.student_aid)
-        setIsArchiving(1)
+        dispatch(setIsActive(true));
+        setId(item.student_aid);
+        setIsArchiving(1);
     }
 
     const handleDelete = (item) => {
-        setIsDelete(true);
-        setId(item.student_aid)
+        dispatch(setIsDelete(true));
+        setId(item.student_aid);
     }
 
 
   return (
     <>
-    <div className="table-wrapper relative">
+    {/* edit */}
+    <div className="table-wrapper relative overflow-y-scroll h-[600px]">
         {/* <SpinnerFetching/> */}
                     <table>
-                        <thead>
+                        <thead className='sticky top-0 relative z-10 bg-primary'>
                             <tr>
                                 <th className='w-[20px]'>#</th>
                                 <th className='w-[150px]'>Name</th>
@@ -73,7 +80,7 @@ const StudentTable = ({setShowInfo, showInfo, student, isLoading, setItemEdit, s
                 )}
              
                 {student?.data.map((item, key) => (
-                        <tr onDoubleClick={handleShowInfo} key={key}>
+                        <tr onDoubleClick={() => handleShowInfo(item)} key={key}>
                             <td>{counter++}</td>
                             <td>{item.student_name}</td>
                             <td>{item.student_class}</td>
@@ -102,9 +109,9 @@ const StudentTable = ({setShowInfo, showInfo, student, isLoading, setItemEdit, s
                     </table>
                 </div>
                 
-                {isActive && <ModalConfirmed position="center" setIsSuccess={setIsSuccess} setMessage={setMessage} setIsActive={setIsActive} queryKey="student" endpoint={`/v1/student/active/${id}`} isArchiving={isArchiving}/>}
+                {store.isActive && <ModalConfirmed position="center" setIsSuccess={setIsSuccess} setMessage={setMessage} queryKey="student" endpoint={`/v1/student/active/${id}`} isArchiving={isArchiving}/>}
 
-                {isDelete && <ModalDelete position="center" setIsSuccess={setIsSuccess} setMessage={setMessage} setIsDelete={setIsDelete} queryKey="student" endpoint={`/v1/student/${id}`} />}
+                {store.isDelete && <ModalDelete position="center" setIsSuccess={setIsSuccess} setMessage={setMessage} queryKey="student" endpoint={`/v1/student/${id}`} />}
                 </>
   )
 }

@@ -2,15 +2,17 @@ import React from 'react'
 import { LiaTimesSolid } from 'react-icons/lia'
 import ModalWrapper from '../../../../partials/modals/ModalWrapper'
 import SpinnerButton from '../../../../partials/spinners/SpinnerButton'
-import { InputText } from '../../../../helpers/FormInputs'
+import { InputSelect, InputText } from '../../../../helpers/FormInputs'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { queryData } from '../../../../helpers/queryData'
+import { StoreContext } from '../../../../../store/StoreContext'
+import { setIsAdd, setMessage, setSuccess } from '../../../../../store/StoreAction'
 
-const ModalAddStudent = ({setIsAdd, setMessage, setIsSuccess, itemEdit}) => {
-
-    const handleClose = () => setIsAdd(false);
+const ModalAddStudent = ({itemEdit}) => {
+    const {dispatch} = React.useContext(StoreContext)
+    const handleClose = () => dispatch(setIsAdd(false));
 
     // new
     const queryClient = useQueryClient();
@@ -26,9 +28,9 @@ const ModalAddStudent = ({setIsAdd, setMessage, setIsSuccess, itemEdit}) => {
         onSuccess: (data) => {
         queryClient.invalidateQueries({ queryKey: ["student"] });
         if (data.success) {
-            setIsAdd(false);
-            setIsSuccess(true);
-            setMessage(`Successfuly updated.`);
+            dispatch(setIsAdd(false));
+            dispatch(setSuccess(true));
+            dispatch(setMessage(`Successfuly updated.`));
         } else {
             // setIsError(true);
         }
@@ -40,12 +42,15 @@ const ModalAddStudent = ({setIsAdd, setMessage, setIsSuccess, itemEdit}) => {
         student_name: itemEdit ? itemEdit.student_name : "",
         student_class: itemEdit ? itemEdit.student_class : "",
         student_age:  itemEdit ? itemEdit.student_age : "",
+        student_gender:  itemEdit ? itemEdit.student_gender : "",
+        student_email:  itemEdit ? itemEdit.student_email : "",
     }
 
     const yupSchema = Yup.object({
         student_name: Yup.string().required("Required g"),
         student_class: Yup.string().required("Required g"),
         student_age: Yup.number().required("Required g"),
+        student_gender: Yup.string().required("Required g"),
     })
 
    
@@ -85,21 +90,29 @@ const ModalAddStudent = ({setIsAdd, setMessage, setIsSuccess, itemEdit}) => {
                                 name="student_class"
                             />
                         </div>
-
-                        {/* <div className="input-wrap">
-                            <label htmlFor="">Gender</label>
-                            <select>
-                                <option value="Male" className='text-stone-900'>Male</option>
-                                <option value="Feale" className='text-stone-900'>Female</option>
-                            </select>
-                            <small className='error-msg'>Required*</small>
-                        </div> */}
+                                
+                                {/* edit here */}
+                        <div className="input-wrap">
+                        <InputSelect label="Select Gender" name="student_gender">
+                                        <option value="" hidden>Select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                </InputSelect>
+                        </div>
 
                         <div className="input-wrap">
                         <InputText
                                 label="Age"
                                 type="number"
                                 name="student_age"
+                            />
+                        </div>
+
+                        <div className="input-wrap">
+                        <InputText
+                                label="email"
+                                type="text"
+                                name="student_email"
                             />
                         </div>
 

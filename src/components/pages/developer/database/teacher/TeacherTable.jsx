@@ -5,10 +5,15 @@ import TableLoader from '../../../../partials/TableLoader'
 import NoData from '../../../../partials/NoData'
 import SpinnerFetching from '../../../../partials/spinners/SpinnerFetching'
 
-const TeacherTable = ({setShowInfo, showInfo, teacher, isLoading}) => {
-    const handleShowInfo = () => setShowInfo(!showInfo)
+const TeacherTable = ({setShowInfo, showInfo, teacher, isLoading, setTeacherInfo}) => {
+  
     let counter = 1;
 
+    const handleShowInfo = (item) => {
+        setTeacherInfo(item)
+        setShowInfo(true)
+    }
+    
   return (
     <div className="table-wrapper relative">
         {/* <SpinnerFetching/> */}
@@ -43,7 +48,7 @@ const TeacherTable = ({setShowInfo, showInfo, teacher, isLoading}) => {
                 )}
 
                 {teacher?.data.map((item, key) => (
-                            <tr onDoubleClick={handleShowInfo}>
+                            <tr onDoubleClick={() => handleShowInfo(item)} key={key}>
                                 <td>{counter++}</td>
                                 <td>{item.teacher_name}</td>
                                 <td>{item.teacher_class}</td>

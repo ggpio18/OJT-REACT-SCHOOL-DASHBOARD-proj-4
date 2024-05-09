@@ -9,11 +9,14 @@ import { LiaEdit, LiaEnvelope, LiaHistorySolid, LiaKeySolid, LiaTrashAltSolid } 
 import TeacherTable from './TeacherTable'
 import Databaseinformation from '../Databaseinformation'
 import useQueryData from '../../../../custom-hook/useQueryData'
+import Databaseinformationteacher from './Databaseinformationteacher'
 
 
 
 const Teacher = () => {
     const [showInfo, setShowInfo] = React.useState(false);
+    const [teacherInfo, setTeacherInfo] = React.useState('')
+
     const {
         isLoading,
         isFetching,
@@ -54,10 +57,11 @@ const Teacher = () => {
                     </button>
                 </div>
 
-                <TeacherTable showInfo={showInfo} setShowInfo={setShowInfo} isLoading={isLoading} teacher={teacher}/>
+                <TeacherTable showInfo={showInfo} setShowInfo={setShowInfo} isLoading={isLoading} teacher={teacher} teacherInfo
+                setTeacherInfo={setTeacherInfo}/>
 
             </div>
-             <Databaseinformation showInfo={showInfo}/>
+             <Databaseinformationteacher showInfo={showInfo} teacherInfo={teacherInfo} setShowInfo={setShowInfo}/>
         </div>
 
         </main>

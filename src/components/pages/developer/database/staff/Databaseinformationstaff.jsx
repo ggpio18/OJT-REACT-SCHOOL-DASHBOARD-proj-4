@@ -1,20 +1,17 @@
 import React from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { LiaEnvelope, LiaKeySolid } from 'react-icons/lia'
-import { setIsShow } from '../../../../store/StoreAction'
-import { StoreContext } from '../../../../store/StoreContext'
 
-const Databaseinformation = ({showInfo, studentInfo, setShowInfo}) => {
-    const {store, dispatch} = React.useContext(StoreContext)
-   const handleClose = () => dispatch(setIsShow(false))
+const Databaseinformationstaff = ({showInfo,staffInfo, setShowInfo}) => {
+   const handleClose = () => setShowInfo(false)
   return (
-    <div className={`information bg-primary z-[9999] fixed transition-all border-l border-line h-[calc(100vh-65px)] overflow-hidden w-1/4 ${store.isShow ? "right-0" : "-right-1/4"}`}>
+    <div className={`information absolute transition-all border-l border-line h-[calc(100vh-65px)] overflow-hidden w-1/4 ${showInfo ? "right-0" : "-right-1/4"}`}>
                 <button className='absolute top-0 left-0 size-10 grid place-content-center bg-secondary text-content' onClick={handleClose}><FaTimes/></button>
                 <div className='p-10'>
                 <div className="text-center mb-8">
                     <img src="https://via.placeholder.com/100x100" alt="" className='rounded-full size-[100px] mx-auto object-fit mb-4'/>
-                    <h3 className='mb-1'>{studentInfo.student_name}</h3>
-                    <small className='opacity-60'>{studentInfo.student_class}</small>
+                    <h3 className='mb-1'>{staffInfo.staff_name}</h3>
+                    <small className='opacity-60'>{staffInfo.staff_class}</small>
                     <ul className='flex gap-5 mt-5 justify-center'>
                         <li><button className='tooltip text-2xl' data-tooltip="Account"><LiaKeySolid/></button></li>
                         <li><button className='tooltip text-2xl' data-tooltip="Email"><LiaEnvelope/></button></li>
@@ -27,12 +24,12 @@ const Databaseinformation = ({showInfo, studentInfo, setShowInfo}) => {
                 <div className="grid grid-cols-2 gap-4 mt-8">
                     <div className='info-box'>
                         <h4>Age</h4>
-                        <p className='text-xs'>{studentInfo.student_age}</p>
+                        <p className='text-xs'>{staffInfo.staff_age}</p>
                     </div>
 
                     <div className='info-box'>
                         <h4>Gender</h4>
-                        <p className='text-xs'>{studentInfo.student_gender}</p>
+                        <p className='text-xs'>{staffInfo.staff_gender}</p>
                     </div>
 
                     <div className='info-box'>
@@ -42,7 +39,7 @@ const Databaseinformation = ({showInfo, studentInfo, setShowInfo}) => {
 
                     <div className='info-box'>
                         <h4>Address</h4>
-                        <p className='text-xs'>{studentInfo.student_email}</p>
+                        <p className='text-xs'>{staffInfo.staff_email}</p>
                     </div>
 
                 </div>
@@ -52,4 +49,4 @@ const Databaseinformation = ({showInfo, studentInfo, setShowInfo}) => {
   )
 }
 
-export default Databaseinformation
+export default Databaseinformationstaff

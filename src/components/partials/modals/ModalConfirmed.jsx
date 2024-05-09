@@ -5,10 +5,13 @@ import { BiErrorCircle } from 'react-icons/bi'
 import { PiArchive } from "react-icons/pi";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryData } from '../../helpers/queryData';
+import { StoreContext, StoreProvider } from '../../../store/StoreContext';
+import { setIsActive, setSuccess, setMessage } from '../../../store/StoreAction';
 
 
-const ModalConfirmed = ({position, setIsActive, endpoint, queryKey, isArchiving, setIsSuccess, setMessage}) => {
-  const handleClose = () => setIsActive(false)
+const ModalConfirmed = ({position, endpoint, queryKey, isArchiving}) => {
+  const {dispatch} = React.useContext(StoreContext)
+  const handleClose = () => dispatch(setIsActive(false))
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -18,9 +21,9 @@ const ModalConfirmed = ({position, setIsActive, endpoint, queryKey, isArchiving,
       queryClient.invalidateQueries({ queryKey: ["student"] });
 
       if (data.success) {
-        setIsActive(false);
-        setIsSuccess(true);
-        setMessage(`Record successfully ${isArchiving ? "Archived" : "Restored"}.`);
+        dispatch(setIsActive(false))
+        dispatch(setSuccess(false))
+        dispatch(setMessage(`Record successfully ${isArchiving ? "Archived" : "Restored"}.`))
       } else {
         // setIsError(true)
         // setMessage(data.error)

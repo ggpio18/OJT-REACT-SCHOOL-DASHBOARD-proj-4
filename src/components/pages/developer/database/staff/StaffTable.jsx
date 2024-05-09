@@ -5,8 +5,13 @@ import TableLoader from '../../../../partials/TableLoader'
 import NoData from '../../../../partials/NoData'
 import SpinnerFetching from '../../../../partials/spinners/SpinnerFetching'
 
-const StaffTable = ({setShowInfo, showInfo, staff, isLoading}) => {
-    const handleShowInfo = () => setShowInfo(!showInfo)
+const StaffTable = ({setShowInfo, showInfo, staff, isLoading, setSaffInfo}) => {
+
+
+    const handleShowInfo = (item) => {
+        setSaffInfo(item)
+        setShowInfo(true)
+    }
     let counter = 1;
 
   return (
@@ -42,7 +47,7 @@ const StaffTable = ({setShowInfo, showInfo, staff, isLoading}) => {
                 )}
 
                 {staff?.data.map((item, key) => (
-                            <tr onDoubleClick={handleShowInfo} key={key}>
+                            <tr onDoubleClick={() => handleShowInfo(item)} key={key}>
                                 <td>{counter++}</td>
                                 <td>{item.staff_name}</td>
                                 <td>{item.staff_class}</td>

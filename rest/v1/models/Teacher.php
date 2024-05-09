@@ -28,8 +28,8 @@ Class Teacher {
             $sql .= "teacher_class, ";
             $sql .= "teacher_age, ";
             $sql .= "teacher_is_active, ";
-            $sql .= "teacher_gender, ";
-            $sql .= "teacher_email, ";
+            // $sql .= "teacher_gender, ";
+            // $sql .= "teacher_email, ";
             $sql .= "teacher_created, ";
             $sql .= "teacher_datetime ) values ( ";
             $sql .= ":teacher_name, ";
@@ -46,8 +46,8 @@ Class Teacher {
                 "teacher_class" => $this->teacher_class,
                 "teacher_age" => $this->teacher_age,
                 "teacher_is_active" => $this->teacher_is_active,
-                "teacher_gender" => $this->teacher_gender,
-                "teacher_email" => $this->teacher_email,
+                // "teacher_gender" => $this->teacher_gender,
+                // "teacher_email" => $this->teacher_email,
                 "teacher_created" => $this->teacher_created,
                 "teacher_datetime" => $this->teacher_datetime,
             ]);
